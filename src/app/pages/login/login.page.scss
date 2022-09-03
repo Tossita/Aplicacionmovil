@@ -1,0 +1,28 @@
+
+
+
+.white-shadow{
+    -webkit-box-shadow: -1px 3px 31px 0px rgba(255,255,255,0.6);
+    -moz-box-shadow: -1px 3px 31px 0px rgba(255,255,255,0.6);
+    box-shadow: -1px 3px 31px 0px rgba(255,255,255,0.6);
+
+}
+
+.a-a{
+    text-decoration: none;
+}
+
+.a-a:hover {
+    font-weight: bold;
+    text-decoration:underline;
+}
+
+ion-card{
+
+    width: fit-content;
+
+    @media (min-width: 576px) {
+        width: 50%;
+    }
+
+}

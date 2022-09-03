@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    
+    <ion-title slot="end"><img alt="logo" class="tamanio-logo" src="../../../assets/icon/Logo_DuocUC.svg.png" ></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-content-1 ic-2" >
+  <div>
+    <ion-card class="white-shadow">
+  
+      <ion-card-header style="text-align: center;">
+        <ion-card-subtitle><img alt="logo" width="50%" src="../../../assets/icon/grupo-de-usuarios.png" ></ion-card-subtitle>
+        <ion-card-title >Login</ion-card-title>
+      </ion-card-header>
+  
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="stacked">Correo electrónico</ion-label>
+          <ion-input type="text" placeholder="Ej: name@email.com" [(ngModel)]="email"></ion-input>
+          
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Contraseña</ion-label>
+          <ion-input type="password" placeholder="Ej: algo123" [(ngModel)]="password"></ion-input>
+        </ion-item>
+        <br>
+
+        <ion-button type="submit" class="button-color" expand="full" (click)="login()">Ingresar</ion-button>
+        <hr>
+        <div style="display: flex;text-align: center; margin-top: 1%; margin-bottom: 1%; flex-direction: column;">
+          <a class="a-a" routerLink='/registro' style="color: black;">¿Todavía no tienes cuenta?</a>
+          <a class="a-a" routerLink='/reset-password' style="color: black; margin-top: 2%;">¿Olvidaste tu contraseña?</a>
+        </div>
+      </ion-card-content>
+  
+    </ion-card>
+  </div>
+
+  
+</ion-content>

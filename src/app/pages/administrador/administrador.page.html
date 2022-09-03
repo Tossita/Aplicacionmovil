@@ -1,0 +1,184 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title slot="end"><img alt="logo" class="tamanio-logo" src="../../../assets/icon/Logo_DuocUC.svg.png"></ion-title>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-menu class="fondo-menu" contentId="main-content" type="overlay" menuId="main-content">
+  <ion-header>
+    <ion-toolbar color="warning">
+      <ion-title>Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-accordion-group>
+        <ion-accordion value="first">
+          <ion-item slot="header" color="light">
+            <ion-label>Administrar Alumnos</ion-label>
+          </ion-item>
+          <ion-item slot="content">
+            <ion-button color="dark" expand="full" fill="clear" (click)="listar_alumnos()">Listar alumnos</ion-button>
+          </ion-item>
+          <ion-item slot="content">
+            <ion-button color="dark" fill="clear">Agregar alumno</ion-button>
+          </ion-item>
+        </ion-accordion>
+        <ion-accordion value="second">
+          <ion-item slot="header" color="light">
+            <ion-label>Administrar Profesores</ion-label>
+          </ion-item>
+          <ion-item slot="content">
+            <ion-button color="dark" fill="clear" (click)="listar_profesores()">Listar profesores</ion-button>
+          </ion-item>
+          <ion-item slot="content">
+            <ion-button color="dark" fill="clear">Agregar profesor</ion-button>
+          </ion-item>
+        </ion-accordion>
+        <ion-accordion value="third">
+          <ion-item slot="header" color="light">
+            <ion-label>Administrar usuarios</ion-label>
+          </ion-item>
+          <ion-item slot="content">
+            <ion-button color="dark" fill="clear" (click)="listar_administradores()">Listar administradores</ion-button>
+          </ion-item>
+          <ion-item slot="content">
+            <ion-button color="dark" fill="clear">Agregar administrador</ion-button>
+          </ion-item>
+        </ion-accordion>
+      </ion-accordion-group>
+    
+      <ion-item><ion-button fill="clear" style="color: black;" routerLink="/login"><ion-icon name="log-out-outline" style="color: black;"></ion-icon>Cerrar sesión</ion-button></ion-item>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<ion-router-outlet id="main-content"></ion-router-outlet>
+
+
+<ion-content class="ion-content-1 ic-2">
+  
+
+  <ion-card>
+    <ion-card-header>
+      <div style="flex-direction: column;">
+        <div style=" display:flex ;justify-content: center; align-items: center; margin-top:4%; margin-bottom: 3%;">
+          <img  alt="logo" src="../../../assets/icon/usuario_admin.png" style="width: 30%; height: 30%;">
+        </div>
+        <!--agregar interpolacion de nombre-->
+        
+        <ion-title style="text-align: center;">Bienvenido name!</ion-title>
+      </div>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="padding-a" style="margin-top: 10%;">
+        <section *ngIf="mostrar_lista_profesores " style="text-align: center; margin-top: 4%;">
+          <h1>LISTA DE USUARIOS PROFESORES</h1>
+          <ion-list *ngFor="let usuario of usuarios">
+            <article *ngIf="usuario.tipo_usuario=='profesor'">
+
+              <p>{{usuario.rut}} - {{usuario.nom_completo}} - {{usuario.fecha_nac}} - {{usuario.semestre}}</p>
+              <ion-button color="warning" id="open-modal" (click)="buscar(usuario.rut, true)">Buscar</ion-button>
+              <ion-button color="danger" (click)="eliminar(usuario.rut)">Eliminar</ion-button>
+            </article>
+          </ion-list>
+        </section>
+        <section *ngIf="mostrar_lista_alumnos " style="text-align: center; margin-top: 4%;">
+          <h1>LISTA DE USUARIOS ALUMNO</h1>
+          <ion-list *ngFor="let usuario of usuarios">
+            <article *ngIf="usuario.tipo_usuario=='alumno'">
+
+              <p>{{usuario.rut}} - {{usuario.nom_completo}} - {{usuario.fecha_nac}} - {{usuario.semestre}}</p>
+              <ion-button color="warning" id="open-modal" (click)="buscar(usuario.rut, true)">Buscar</ion-button>
+              <ion-button color="danger" (click)="eliminar(usuario.rut)">Eliminar</ion-button>
+            </article>
+          </ion-list>
+        </section>
+        <section *ngIf="mostrar_lista_administradores " style="display:flex;text-align: center; margin-top: 4%; flex-direction: column;">
+          <h1>LISTA DE USUARIOS ADMINISTRADORES</h1>
+          <ion-list *ngFor="let usuario of usuarios">
+            <article *ngIf="usuario.tipo_usuario=='administrador'">
+
+              <p>{{usuario.rut}} - {{usuario.nom_completo}} - {{usuario.fecha_nac}} - {{usuario.semestre}}</p>
+              
+              
+              <ion-button id="open-modal" (click)="usuario.rut" expand="block">Open</ion-button>
+              
+              <ion-button color="danger" (click)="eliminar(usuario.rut)">Eliminar</ion-button>
+
+            </article>
+          </ion-list>
+        </section>
+
+        
+
+        
+      </div>
+    </ion-card-content>
+  </ion-card>
+  
+  
+    <ion-modal [backdropDismiss]="false" *ngIf="buscar_usuario" [isOpen]="isModalOpen" >
+      <ion-backdrop (click)="close_bd(false)"> 
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+              <ion-title>Modal</ion-title>
+              <ion-buttons slot="end">
+                <ion-button (click)="buscar(0, false)">Close</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <section *ngIf="chequeo">
+            <form [formGroup]="alumno" (ngSubmit)="registrar()">
+              <ion-item>
+                <ion-label position="stacked">Rut</ion-label>
+                <ion-input type="text" placeholder="Ingrese rut" formControlName="rut"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Nombre completo</ion-label>
+                <ion-input type="text" placeholder="Ingrese nombre" formControlName="nom_completo"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Fecha nacimiento</ion-label>
+                <ion-input type="date" placeholder="Ingrese fecha nacimiento" formControlName="fecha_nac"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Semestre</ion-label>
+                <ion-input type="number" placeholder="Ingrese semestre" formControlName="semestre"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Email</ion-label>
+                <ion-input type="text" placeholder="Ingrese email" formControlName="email"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Contraseña</ion-label>
+                <ion-input type="password" placeholder="Ingrese contraseña" formControlName="password"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Repita Contraseña</ion-label>
+                <ion-input type="password" placeholder="Ingrese nuevamente contraseña" [(ngModel)]="verificar_password" [ngModelOptions]="{standalone: 'true'}"></ion-input>
+              </ion-item>
+              
+              <ion-button type="submit" class="button-color" expand="full" [disabled]="!alumno.valid">REGISTRAR</ion-button>
+              
+        
+            </form>
+          </section>
+        </ng-template>
+      </ion-backdrop>
+    </ion-modal>
+
+  
+</ion-content>
+
+
+
+  
+
+

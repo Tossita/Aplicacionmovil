@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title slot="end"><img alt="logo" class="tamanio-logo" src="../../../assets/icon/Logo_DuocUC.svg.png"></ion-title>
+      <ion-buttons slot="start">
+        <ion-menu-button (click)="openEnd()"></ion-menu-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-menu class="fondo-menu" contentId="main-content" type="overlay" menuId="main-content">
+  <ion-header>
+    <ion-toolbar color="warning">
+      <ion-title>Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item><ion-button fill="clear" style="color: black;" routerLink="/login"><ion-icon name="log-out-outline" style="color: black;"></ion-icon>Cerrar sesión</ion-button></ion-item>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<ion-router-outlet id="main-content"></ion-router-outlet>
+
+
+<ion-content class="ion-content-1 ic-2" style="justify-content: center; ">
+  
+
+  <div>
+    <ion-grid>
+  
+      <ion-row>
+        <ion-col size-md="1">
+          ion-col [size="1"]
+        </ion-col>
+        <ion-col size-md="10">
+          <div class="color-fondo padding-a">
+            <div style=" display:flex ;justify-content: center; align-items: center; margin-top:4%; margin-bottom: 3%;">
+              <img  alt="logo" src="../../../assets/icon/usuario_alumno.png" style="width: 30%; height: 30%;">
+            </div>
+            <!--agregar interpolacion de nombre-->
+            <ion-title style="text-align: center;">Bienvenido name!</ion-title>
+            <div style="text-align: center; margin-top: 4%;">
+              <ion-button color="warning" (click)="comenzarAlert()" >
+                Comenzar clase
+              </ion-button>
+            </div>
+            
+          </div>
+        </ion-col>
+        <ion-col size-md="1">
+          ion-col [size="1"]
+        </ion-col>
+      </ion-row>
+    
+      
+    </ion-grid>
+  
+  </div>
+  
+</ion-content>
+
+  
+
+
